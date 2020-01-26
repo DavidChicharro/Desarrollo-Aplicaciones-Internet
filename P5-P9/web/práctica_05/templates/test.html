@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}|Test{% endblock %}
+
+
+{% block content %}
+	<p>Hola mundo</p>
+
+{% for grupo in grupos %}
+	<h1>Grupo: {{ grupo.nombre_grupo }}</h1>
+	<p>Fecha de fundación: {{ grupo.fecha_fundacion }}</p>
+	<p>Estilo: {{ grupo.estilo_musical }}</p>
+	<a href="https://{{ grupo.sitio_web }}">Sitio web</a>
+{% endfor %}
+{% endblock %}

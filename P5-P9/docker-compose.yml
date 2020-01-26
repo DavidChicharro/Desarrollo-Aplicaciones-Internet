@@ -1,0 +1,26 @@
+
+version: '3.7'
+
+services:
+   nginx:
+      image: nginx:alpine
+      ports:
+         - 80:80
+         - 443:443
+      volumes:
+         - ./conf:/etc/nginx/conf.d:ro      # dir para archivo configuración de nginx
+         - ./web/static:/var/www/static     # para los archivos static
+      depends_on:
+         - web
+   web:
+      build: web
+      restart: always
+      #command: supervisord
+      command: gunicorn sitio_web.wsgi:application --bind 0.0.0.0:8000
+      ports:
+         - 8000:8000
+      volumes:
+         - ./web:/web
+
+
+# para la BD usamos sqlite, por defecto en django

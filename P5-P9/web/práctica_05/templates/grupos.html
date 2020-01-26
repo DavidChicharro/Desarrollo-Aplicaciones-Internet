@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}|Grupos{% endblock %}
+
+{% block javascript %}
+	<script>
+		$('.gr_pag').click(function(){
+			var pagina = ($(this).val());
+			var clickedBtn = $(this);
+			$.ajax({
+				url: "{% url 'grupos_ajax' %}",
+				type: 'get',
+				data: {page:pagina},
+				dataType: 'json',
+				success: function(datos){
+					visualiza_datos(datos);
+				},
+				failure: function(datos){
+					console.log("Failure");
+				}
+			});
+
+			function visualiza_datos(datos){
+				var obj = jQuery.parseJSON(datos);
+				let numGrupos = obj.grupos.length;
+
+				var tr='<tbody>';
+				for(let i=0; i<numGrupos; i++){
+					tr+=('<tr>');
+					for(let j=0; j<obj.grupos[i].length-1; j++){
+						tr+=('<td>'+obj.grupos[i][j]+'</td>');
+					}
+					tr+=('<td><a href="https://'+obj.grupos[i][3]+'">Sitio web</a></td>');
+					tr+=('</tr>');
+				}
+				tr+=('</tbody>');
+				$('tbody').replaceWith(tr);
+
+				console.log(tr);
+
+
+				var paginas = obj.paginas;
+				$("button[name|='btn']").removeClass("disabled");
+				$(clickedBtn).addClass("disabled");
+				if(pagina==1){
+					$("button[name|='btn-bck']").addClass("disabled");
+					$("button[name='btn-1']").addClass("disabled");
+				}else if(pagina==paginas[paginas.length-1])
+					$("button[name|='btn-fw']").addClass("disabled");
+			}
+		});
+
+	</script>
+{% endblock %}
+
+
+{% block content %}
+	<h2>Grupos</h2>
+
+	<!-- Tabla con información de los grupos -->
+	<table class="table offset-1 col-9">
+		<thead>
+			<tr>
+				<th>Grupo</th>
+				<th>Fecha de fundación</th>
+				<th>Estilo</th>
+				<th>Sitio web</th>
+			</tr>
+		</thead>
+		<tbody>
+	{% for grupo in grupos %}
+			<tr>
+				<td>{{ grupo.nombre_grupo }}</td>
+				<td>{{ grupo.fecha_fundacion }}</td>
+				<td>{{ grupo.estilo_musical }}</td>
+				<td><a href="https://{{ grupo.sitio_web }}">Sitio web</a></td>
+			</tr>
+	{% endfor %}
+		</tbody>
+	</table>
+
+	<!-- Paginador -->
+	<div class="pagination offset-3 col-7">
+	 	{% if current == 1 %}
+			<button type="button" value="1" name="btn-bck-doub" class="btn btn-link gr_pag disabled">&lt;&lt;</button>
+		{% else %}
+			<button type="button" value="1" name="btn-bck-doub" class="btn btn-link gr_pag">&lt;&lt;</button>
+		{% endif %}
+
+		{% for i in paginas %}
+			{% if i == current %}
+				<button type="button" value="{{i}}" name="btn-{{i}}" class="btn btn-link gr_pag disabled">{{i}}</button>
+			{% else %}
+				<button type="button" value="{{i}}" name="btn-{{i}}" class="btn btn-link gr_pag">{{i}}</button>
+			{% endif %}
+		{% endfor %}
+
+		{% if current == paginas|last  %}
+			<button type="button" value="{{ paginas|last }}" name="btn-fw-doub" class="btn btn-link gr_pag disabled">&gt;&gt;</button>
+	    {% else %}
+			<button type="button" value="{{ paginas|last }}" name="btn-fw-doub" class="btn btn-link gr_pag">&gt;&gt;</button>
+	    {% endif %}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script>
+
+
+</script>
+{% endblock %}
+
+{% block title %}|Gráficas{% endblock %}
+
+
+{% block content %}
+<section>
+	<div id="grafica1" style="width:100%; height:500px;"></div>
+	<div id="grafica2" style="width:100%; height:500px;"></div>
+
+	<script>
+		_albs_x_grupo = {{ albums_por_grupo|safe }}
+		document.addEventListener('DOMContentLoaded', function () {
+			var myChart1 = Highcharts.chart('grafica1', {
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Número de álbumes por grupo'
+				},
+				xAxis: {
+					type: 'category',
+					labels: {
+						rotation: -45,
+						style: {
+							fontSize: '13px',
+							fontFamily: 'Verdana, sans-serif'
+						}
+					}
+				},
+				yAxis: {
+					min: 0,
+					tickInterval: 2,
+					title: {
+						text: 'Álbumes'
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					pointFormat: 'Álbumes: <b>{point.y:.0f}</b>'
+				},
+				series: [{
+				    name: 'Grupos',
+				    data: _albs_x_grupo,
+				    dataLabels: {
+				        enabled: false
+				    }
+				}]
+				});
+	    });
+
+		_alb_years = {{ alb_years|safe }}
+		_alb_cnt = {{ alb_cnt|safe }}
+	    document.addEventListener('DOMContentLoaded', function () {
+			var myChart2 = Highcharts.chart('grafica2', {
+				chart: {
+				    type: 'line'
+				},
+				title: {
+				    text: 'Álbumes lanzados cada año'
+				},
+				xAxis: {
+				    categories: _alb_years,
+				    labels: {
+						rotation: -60,
+						style: {
+							fontSize: '10px',
+							fontFamily: 'Verdana, sans-serif'
+						}
+					}
+				},
+				yAxis: {
+				    title: {
+				        text: 'Número de álbumes'
+				    }
+				},
+				plotOptions: {
+				    line: {
+				        dataLabels: {
+				            enabled: false
+				        },
+				        enableMouseTracking: true
+				    }
+				},
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					pointFormat: 'Álbumes: <b>{point.y}</b>'
+				},
+				series: [{
+					showInLegend: false,
+				    name: 'Número de álbumes',
+				    data: _alb_cnt
+				}]
+			});
+	    });
+    </script>
+
+</section>
+{% endblock %}

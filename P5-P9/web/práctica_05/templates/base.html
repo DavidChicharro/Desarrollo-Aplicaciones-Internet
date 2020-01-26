@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+	{% block scripts %}{% endblock %}
+
+	<script>
+		// Ocultar menú
+		$(document).ready(function(){
+			$("#btn-hide-menu").click(function(){
+				if ($("#navegador").hasClass("d-none")){
+					$("#navegador").animate({
+						left: "0",
+					    opacity: 1,
+					}, 500 );
+				}else{
+					$("#navegador").animate({
+						left: "-250px",
+					    opacity: 0.4,
+					}, 500 );
+				}
+
+			    $("#navegador").toggleClass("d-none");
+			});
+		});
+
+		// Aumentar tamaño de la fuente
+		$(document).ready(function(){
+			$("#btn-big").click(function() {
+				var tam = $("body").css("font-size");
+				var flt_tam = parseFloat(tam)
+				flt_tam = flt_tam+2.0;
+				tam = flt_tam.toString()+"px";
+				$("body").css("font-size", tam);
+
+				if (flt_tam >= 20) {
+					$("#btn-big").attr("disabled", true);
+				}
+				$("#btn-small").attr("disabled", false);
+			});
+		});
+
+		// Disminuir tamaño de la fuente
+		$(document).ready(function(){
+			$("#btn-small").click(function() {
+				var tam = $("body").css("font-size");
+				var flt_tam = parseFloat(tam)
+				flt_tam = flt_tam-2.0;
+				tam = flt_tam.toString()+"px";
+				$("body").css("font-size", tam);
+
+				if (flt_tam <= 14) {
+					$("#btn-small").attr("disabled", true);
+				}
+				$("#btn-big").attr("disabled", false);
+
+			});
+		});
+
+		// Modo oscuro/claro
+		$(document).ready(function() {
+			$("#dark-theme").click(function() {
+			    $("body").toggleClass("bg-dark text-white");
+			    $("nav").toggleClass("navbar-dark bg-dark");
+			    $("#navegador").toggleClass("navbar-dark bg-dark");
+			    $("table").toggleClass("table-dark");
+
+			    var icono = $("#lab-dark").text();
+			    if (icono == "💡"){
+			    	$("#lab-dark").text("🌚");
+			    }
+			    else{
+			    	$("#lab-dark").text("💡");
+			    }
+			});
+		});
+
+	</script>
+
+	<title>TopeMiusic{% block title %}{% endblock %}</title>
+
+</head>
+<body>
+	<header class="row mx-auto">
+		<!-- Botón menú -->
+		<div class="btn-group col-1">
+			<button class="btn" type="button" id="btn-hide-menu">
+				<img src="{% static 'icons/bars-solid.svg' %}" alt="menu-icon" width="35px">
+			</button>
+		</div>
+
+		<!-- Título web -->
+		<div class="col-sm-6 col-12 align-self-center">
+			<h1 class="text-center font-weight-bold display-4">TopeMiusic</h1>
+		</div>
+
+		<!-- Usuario -->
+		<section class="col-sm-4 offset-sm-2 col-md-2 offset-md-1">
+			<p class="text-center">
+			{% if username != '' %}
+				{{ username }}
+				<a class="mx-auto d-block text-center mb-1" href="/miaplicacion/logout">Desconectar</a>
+			{% else %}
+				<a class="mx-auto d-block text-center mb-1" href="/miaplicacion/login">Login</a>
+				<a class="mx-auto d-block text-center mb-1" href="/miaplicacion/registro">Regístrate</a>
+			{% endif %}
+			</p>
+		</section>
+	</header>
+
+	<main class="row mx-0">
+		<!--Barra de navegación-->
+		<section class="col-2 px-0 bg-light" id="navegador">
+
+			<nav class="navbar navbar-light bg-light">
+				<button class="btn btn-danger font-weight-bold" type="button" id="btn-small">-</button>
+				<button class="btn btn-success font-weight-bold" type="button" id="btn-big">+</button>
+				<br>
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="dark-theme" >
+					<label class="custom-control-label" for="dark-theme" id="lab-dark">🌚</label>
+				</div>
+				<div class="navbar-collapse p-1 pt-4" id="navbarNav">
+					<ul class="navbar-nav mr-auto mt-2 mt-md-0">
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/grupos">Grupos</a></li>
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/add_grupo">Añadir grupo</a></li>
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/add_musico">Añadir músico</a></li>
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/add_album">Añadir álbum</a></li>
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/mapas">Mapas</a></li>
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/graficas">Gráficas</a></li>
+						<li class="nav-item"><a class="nav-link" href="/miaplicacion/test_template">Test</a></li>
+					</ul>
+				</div>
+			</nav>
+		</section>
+
+		<section class="col-8">
+		{% block content %}
+        {% endblock %}
+		</section>
+	</main>
+
+	<footer>
+		<a href="mailto:davidcch@correo.ugr.es">Contacto</a>
+		<span>&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;</span>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/ "  target="_blank"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></a>
+		<span>&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;</span>
+		Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">licencia de Creative Commons Reconocimiento 4.0 Internacional</a>
+	</footer>
+	{% block javascript %}{% endblock %}
+</body>
+</html>

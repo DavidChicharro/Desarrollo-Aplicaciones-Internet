@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block username %}{{ username }}{% endblock %}
+
+{% block content %}
+	<h2>Músicos</h2>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Guardar</button>
+    </form>
+{% endblock %}
