@@ -1,0 +1,10 @@
+			{% extends "header.html" %}
+			{% block header_right %}
+			<!--Usuario conectado-->
+			<section class="col-sm-4 offset-sm-2 col-md-2 offset-md-1 text-white">
+				<p class="text-center">{{user}}</p>
+				<img class="icono-usuario  mx-auto d-none d-sm-block" src="{{ url_for('static', filename='images/icono-usuario.png') }}" alt="Conectado">
+				<p class="text-center mb-1">Conectado</p>
+				<a class="mx-auto d-block text-center mb-1" href="/logout">Desconectar</a>
+			</section>
+			{% endblock %}

@@ -1,0 +1,28 @@
+body{
+	margin: 0;
+	font-family: Times;
+}
+
+h1{
+	text-align: center;
+	font-size: 200%;
+	color: #0101ff;
+}
+
+h2{
+	text-align: center;
+	font-size: 180%;
+	color: #000046;
+}
+
+h4{
+	margin-left: 10%;
+}
+
+p{
+	margin-left: 5%;
+}
+
+img{
+	margin-left: 10%;
+}

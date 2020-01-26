@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Mis Pokémons | PokéBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+	</head>
+
+	<body>
+		{% include 'user_connected.html' %}
+		
+		<main class="row mx-0">
+			{% with %}
+				{% set active="mispokemons" %}
+				{% include 'nav_bar.html' %}
+			{% endwith %}
+			
+			<div class="row col-12">
+				<!--Sección izquierda - Pokémons capturados-->
+				<section class="col-12 col-sm-7 col-md-5 offset-md-1">
+					
+					<h2 class="text-uppercase font-weight-bold p-2">Pokemones capturados</h2>
+					{% for pok in pokemons %}
+						<article class="libro row mb-2">
+							<a class="col-4 my-1" href="/pokemon/{{pok[0]}}"> 
+								<img class="img-miniatura" src="{{pok[2]}}" alt="{{pok[0]}}">
+							</a>
+							<article class="libro-autor col-6 offset-2 offset-md-0 col-lg-8 ml-lg-0 col-md-7 ml-md-4">
+								<h4 class="align-middle mt-4 mb-3">{{pok[0]}}</h4>
+								<h5 class="text-muted">
+									{% for p in pok[1] %}
+										{{p}}
+										{% if p!=pok[1][-1] %}
+											&
+										{% endif %}
+									{% endfor %}
+								</h5>
+							</article>
+						</article>
+					{% endfor %}
+				</section>
+
+				<!--Sección derecha - Últimos libros-->
+				<section class="ultimos-libros col-12 col-sm-5 col-md-4 offset-md-2 p-4">
+					<h2 class="text-uppercase font-weight-bold p-2">Últimos Pokémons</h2>
+
+					{% for pok in ultimos_poks %}
+						<a class="ult-poks" href="/pokemon/{{pok['name']}}">{{pok['name']}}</a><br>
+					{% endfor %}
+
+					<a class="alta-libro" href="altalibro.html">Dar de alta nuevo Pokémon</a>
+				</section>
+			</div>
+		</main>
+
+
+		{% include 'footer.html' %}
+
+	</body>
+</html>

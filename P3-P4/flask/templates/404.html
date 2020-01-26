@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>RecomenBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">		
+	</head>
+
+	<body>
+		{% if user == "" %}
+			{% include 'access_form.html' %}
+		{% endif%}
+		{% if user != "" %}
+			{% include 'user_connected.html' %}
+		{% endif %}
+
+		<section class="col-5 offset-3 my-5">
+		    <h3>Página no encontrada</h3>
+		    <h1 class="my-5">Error 404</h1>
+
+		    <h4 class="mb-5">Esta página no existe. Por favor, diríjase a una URL correcta.</h4>
+	    </section>
+
+	    {% include 'footer.html' %}
+	</body>
+</html>

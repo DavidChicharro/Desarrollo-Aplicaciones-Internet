@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Fractal de Mandelbrot</title>
+  </head>
+  <body>
+    <h1>Fractal del conjunto de Mandelbrot</h1>
+
+    <form class="form_mandelbrot" action="" method="post">
+      <label for="x1">x1</label>
+      <input type="number" name="x1" value="" step="0.01"><br/>
+      <label for="y1">y1</label>
+      <input type="number" name="y1" value="" step="0.01"><br/>
+      <label for="x2">x2</label>
+      <input type="number" name="x2" value="" step="0.01"><br/>
+      <label for="y2">y2</label>
+      <input type="number" name="y2" value="" step="0.01"><br/>
+      <label for="anchura">anchura (px)</label>
+      <input type="number" name="anchura" value=""><br/>
+
+      <input type="submit" value="Pintar">
+    </form>
+
+    {% if printImage!="" %}
+      <img src="{{url_for('static', filename=printImage)}}" alt="Conjunto de Mandelbrot">
+    {% endif %}
+
+  </body>
+</html>

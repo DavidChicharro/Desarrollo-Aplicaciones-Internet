@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+	<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Registro | PokéBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/altausuario.css') }}">
+		<script type="text/javascript">
+			let check = function() {
+				let password = document.getElementById('password');
+				let confirm = document.getElementById('passRepetir');
+
+				if (password.value == confirm.value){
+					password.style.borderColor = 'lightgreen';
+					confirm.style.borderColor = 'lightgreen';
+
+					return true;
+				} else {
+					password.style.borderColor = 'red';
+					confirm.style.borderColor = 'red';
+
+					return false;
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<main class="todo">
+			<!--Sección izquierda de bienvenida -->
+			<section class="izq-pag">
+				<a class="link-logo-alta" href="/"> 
+					<img src="{{ url_for('static', filename='images/pokeball.png') }}" class="logo" alt="Logo">
+				</a>
+
+				<article class="bienvenida">
+					<ul>
+						<li>Controla todos tus Pokémons</li>
+						<li>Disfruta compartiendo tus avances</li>
+						<li>Descubre nuevos mundos con otros usuarios</li>
+					</ul>
+				</article>
+			</section>
+
+			<!--Sección derecha de registro -->
+			<section class="dcha-pag">
+				<hgroup>
+					<h2>Regístrate</h2>
+					<h3>Empieza a disfrutar de nuestro contenido</h3>
+				</hgroup>
+
+				<form action="/registro" method="post">
+					<!--input type="file" id="imagen" name="foto"-->
+					<input type="text" id="nombre" name="nombre" placeholder="Nombre" minlength="2" maxlength="25" required><br>
+					<input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" minlength="3" maxlength="60" required><br>
+					<input type="email" id="email" name="email" placeholder="Email" required><br>
+					<input type="password" id="password" name="password" placeholder="Contraseña" minlength="8" required onkeyup="check()"><br>
+					<input type="password" id="passRepetir" name="passRepetir" placeholder="Repite la contraseña" minlength="8" required onkeyup="check()"><br>
+
+					<label for="fNacimiento">Fecha de nacimiento</label><br>
+					<input type="date" id="fNacimiento" name="fecha_nac" min="1902-01-01" max="2019-12-31" required><br>
+
+					<input type="submit" id="btnCrearCuenta" value="Crear cuenta">
+				</form>
+			</section>
+		</main>
+
+		{% include 'footer.html' %}
+
+	</body>
+</html>

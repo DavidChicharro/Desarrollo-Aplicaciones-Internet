@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>RecomenBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+
+		<script>
+			var slideIndex = 0;
+			carousel();
+
+			function carousel() {
+				var i;
+				var x = document.getElementsByClassName("img-slide");
+				for (i = 0; i < x.length; i++) {
+					x[i].style.display = "none"; 
+				}
+				slideIndex++;
+				if (slideIndex > x.length) {slideIndex = 1} 
+				x[slideIndex-1].style.display = "block"; 
+				setTimeout(carousel, 5000); 
+			}
+		</script>
+	</head>
+
+	<body>
+		{% if user == "" %}
+			{% include 'access_form.html' %}
+		{% endif%}
+		{% if user != "" %}
+			{% include 'user_connected.html' %}
+		{% endif %}
+		<!--header class="row mx-auto">
+			<a class="col-3 my-2" href="/"> 
+				<img class="float-left img-fluid header-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+			</a>
+
+			<div class="col-6 align-self-center">
+				<h1 class="text-center font-weight-bold display-4">RecomenBook</h1>
+				<h2 class="text-center font-weight-bold">Página de recomendación de libros</h2>
+			</div>
+
+			<section class="col-2 offset-1">
+				<p class="text-center">{{user}}</p>
+				<img class="icono-usuario  mx-auto mb- d-block" src="{{ url_for('static', filename='images/icono-usuario.png') }}" alt="Conectado">
+				<p class="text-center mb-1">Conectado</p>
+				<a class="mx-auto d-block text-center mb-1" href="/logout">Desconectar</a>
+			</section>	
+		</header-->
+
+		<main class="row">
+			<!--Imágenes relacionadas con la web-->
+			<section class="sticky-top col-12">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+							<li class="nav-item"><a class="nav-link" href="/mislibros">Mis libros</a></li>
+							<li class="nav-item"><a class="nav-link" href="foro.html">Foro</a></li>
+							<li class="nav-item"><a class="nav-link" href="/datospersonales">Mis datos</a></li>
+							<li class="nav-item"><a class="nav-link" href="recomendaciones.html">Mis recomendaciones</a></li>
+						</ul>
+					</div>
+				</nav>
+			</section>
+
+			<!--section class="menus">
+				<nav>
+					<ul>
+						<li><a href="/mislibros">Mis libros</a></li>
+						<li><a href="foro.html">Foro</a></li>
+						<li><a href="datospersonales.html">Mis datos</a></li>
+						<li><a href="recomendaciones.html">Mis recomendaciones</a></li>
+					</ul>
+				</nav>
+			</section-->
+
+			<!--Slide de libros-->
+			<section class="col-7">
+				<img class="img-fluid img-slide" src="{{ url_for('static', filename='images/libros_portada-1.jpg') }}" alt="Logo">
+
+				<img class="img-fluid img-slide" src="{{ url_for('static', filename='images/libros_portada-2.jpg') }}" alt="Logo">
+
+				<img class="img-fluid img-slide" src="{{ url_for('static', filename='images/libros_portada-3.png') }}" alt="Logo">
+			</section>
+
+
+			<!--Sección con los libros mejor valorados-->
+			<section class="col-5 mejores-libros">
+				<h2>Libros mejor valorados</h2>
+
+				<article class="libro">
+					<h5 class="titulo-libro">El jugador</h5>
+					<h6 class="autor">Fiódor Dostoyevski</h6>
+					<p class="descripcion-libro">
+						Novela de Fiódor Dostoyevski escrita en 1866 y publicada en 1867 sobre un joven tutor empleado por un antiguo general ruso. La novela refleja la propia adicción de Dostoyevski al juego de la ruleta durante su estancia en Wiesbaden, presentada como la ciudad ficticia de Roulettenbourg de la novela, y su pasional estadía en Europa con Apollinaria (Polina) Prokófievna Súslova, de quien se enamoró perdidamente.
+					</p>
+				</article>
+
+				<article class="libro">
+					<h5 class="titulo-libro">El puzle de cristal</h5>
+					<h6 class="autor">Blue Jeans</h6>
+					<p class="descripcion-libro">
+						Tras la explosión en la estación de metro, Julia no es la misma. Se ha convertido en una chica insegura, a veces insolente, y a la que le cuesta encontrar motivación para disfrutar de la vida como lo hacía antes. También las cosas han cambiado para Emilio.
+					</p>
+				</article>
+			</section>
+		</main>
+		
+		{% include 'footer.html' %}
+
+	</body>
+</html>

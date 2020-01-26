@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>MIs datos | PokéBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+	</head>
+
+	<body>
+		{% include 'user_connected.html' %}
+		
+		{% with %}
+			{% set active="datospersonales" %}
+			{% include 'nav_bar.html' %}
+		{% endwith %}
+
+		<section class="mt-1 w-50 mx-auto">
+			<form name="datos_personales" action="/cambiardatos" method="post">
+				<fieldset>
+					<legend>Datos personales</legend>
+					<article>
+						<label for="nombre">Nombre</label>
+						<input type="text" class="form-control col-md-6" id="nombre" name="nombre" value="{{datos['nombre']}}" required><br>
+					</article>
+
+					<article>
+						<label for="apellidos">Apellidos</label>
+						<input type="text" class="form-control col-md-6" id="apellidos" name="apellidos" value="{{datos['apellidos']}}" required><br>
+					</article>
+
+
+					<article>
+						<label for="email">Email</label>
+						<input type="email" class="form-control col-md-6" id="email" name="email" value="{{datos['email']}}" required><br>
+					</article>
+
+					<article>
+						<label for="fNacimiento">Fecha de nacimiento</label>
+						<input type="date" class="form-control col-md-6" id="fNacimiento" name="fecha_nac" value="{{datos['fecha_nac']}}" required><br>
+					</article>
+
+					<!--section class="foto-form">	
+						<img class="icono-usuario" src="{{ url_for('static', filename='images/icono-usuario.png') }}" alt="icono">
+					</section-->
+					<input class="btn btn-rc" type="submit" id="btnGuardarCambios" name="modificarDatos" value="Guardar cambios" ><br>
+				</fieldset>
+			</form>
+		</section>
+
+		<section class="my-5 w-50 mx-auto">
+			<form name="form_pass" action="/cambiardatos" method="post">
+				<fieldset>
+					<legend>Contraseña</legend>
+					
+					<article>
+						<label for="passActual">Contraseña actual</label>
+						<input type="password" class="form-control col-md-6" id="passActual" name="passActual" minlength="8" required><br>
+					</article>
+
+					<article>
+						<label for="passNueva">Contraseña nueva</label>
+						<input type="password" class="form-control col-md-6" id="password" name="passNueva" minlength="8" required><br>
+					</article>
+
+					<article>
+						<label for="passRepetir">Repita contraseña</label>
+						<input type="password" class="form-control col-md-6" id="passRepet" name="passRepet" minlength="8" required><br>
+					</article>
+
+					<input class="btn btn-rc" type="submit" id="btnCambiarPass" name="cambiarPass" value="Cambiar contraseña"><br>
+				</fieldset>
+			</form>
+		</section>
+		
+		{% include 'footer.html' %}
+
+	</body>
+</html>

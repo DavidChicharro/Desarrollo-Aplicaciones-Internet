@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>PokéBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+	</head>
+
+	<body>
+		{% include 'user_connected.html' %}
+		
+		<main class="row mx-0">
+			{% with %}
+				{% set active="mispokemons" %}
+				{% include 'nav_bar.html' %}
+			{% endwith %}
+			
+			{% if datos_pokemon %}
+				<section class="col-12 col-sm-7 offset-0 col-md-5 offset-md-1">
+					<img class="float-left" src="{{datos_pokemon['img']}}">
+					{% if btn == false %}
+					<form action="/addpokemon" method="post">
+						<input type="text" name="nom_pokemon" value="{{datos_pokemon['name']}}" hidden>
+						<button type="submit" class="btn btn-info btn-pkmn">Añadir</button>
+					</form>
+					{% endif %}
+					<h2 class="font-weight-bold">{{datos_pokemon['name']}}</h2>
+					<table class="table table-hover table-responsive-sm col-7 offset-4">
+						<tr>
+							<td>Número</td>
+							<td>#{{datos_pokemon['num']}}</td>
+						</tr>
+						<tr>
+							<td>Tipo(s)</td>
+							<td>
+								{% for p in datos_pokemon['type'] %}
+									{{p}}
+									{% if p!=datos_pokemon['type'][-1] %}
+										&
+									{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>Altura</td>
+							<td>{{datos_pokemon['height']}}</td>
+						</tr>
+						<tr>
+							<td>Peso</td>
+							<td>{{datos_pokemon['weight']}}</td>
+						</tr>
+					</table>
+
+					<article class="col-12 offset-2 col-sm-6 offset-sm-5 mt-5">
+						<h3>Debilidades</h3>
+						<table class="table table-hover table-responsive-sm">
+							{% for deb in datos_pokemon['weaknesses'] %}
+								<tr>
+									<td>{{deb}}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</article>
+				</section>
+
+				<section class="col-7 offset-2 col-sm-3 offset-sm-0 offset-md-2">
+					<h3 class="text-center">Go</h3>
+					<table class="table table-hover table-responsive-sm">
+						<tr>
+							<td>Caramelos</td>
+							<td>{{datos_pokemon['candy_count']}}</td>
+						</tr>
+						<tr>
+							<td>Huevos</td>
+							<td>{{datos_pokemon['egg']}}</td>
+						</tr>
+						<tr>
+							<td>Apariciones (media)</td>
+							<td>{{datos_pokemon['avg_spawns']}}</td>
+						</tr>
+						<tr>
+							<td>Tiempo aparición</td>
+							<td>{{datos_pokemon['spawn_time']}}</td>
+						</tr>
+					</table>
+				</section>
+			{% else %}
+				<h3 class="text-center mx-5 mt-3">Lo siento pero el Pokémon que buscas no existe o no pertenece a la primera generación</h3>
+				<img class="w-50 mx-auto d-block" src="{{ url_for('static', filename='images/pikachu_cry.jpeg') }}" alt="pikachu">
+			{% endif %}
+		</main>
+
+
+		{% include 'footer.html' %}
+
+	</body>
+</html>

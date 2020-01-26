@@ -1,0 +1,12 @@
+		<header class="row mx-auto">
+			<a class="col-3 my-2 d-none d-md-block" href="/"> 
+				<img class="float-left img-fluid header-logo" src="{{ url_for('static', filename='images/pokeball.png') }}" alt="Logo">
+			</a>
+
+			<div class="col-sm-6 col-12- align-self-center">
+				<h1 class="text-center font-weight-bold display-4 text-white">PokéBook</h1>
+				<h2 class="text-center font-weight-bold text-white d-none d-sm-block">Book personal de Pokémon</h2>
+			</div>
+
+			{% block header_right %}{% endblock %}
+		</header>

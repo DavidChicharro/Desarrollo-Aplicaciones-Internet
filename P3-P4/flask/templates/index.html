@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>PokéBook</title>
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+		<link rel="script" type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+
+		
+	</head>
+
+	<body>
+	{% if user == "" %}
+		{% include 'access_form.html' %}
+	{% endif%}
+	{% if user != "" %}
+		{% include 'user_connected.html' %}
+	{% endif %}
+		
+		<main class="row mx-0">
+		{% if user != "" %}
+			{% include 'nav_bar.html' %}
+
+			<section class="col-12 offset-0 col-sm-5 offset-sm-1">
+				<h2 class="mt-3">Últimas páginas visitadas</h2>
+
+				<nav class="navbar">
+				{% if webs_visitadas %}
+					{% for i in range(webs_visitadas|length) %}
+						<a href="{{webs_visitadas[i]}}" class="btn-lg btn-block btn-info my-3 text-center" role="button">{{cont[i]}}</a>
+					{% endfor %}
+				{% else %}
+					<h5 class="text-center mx-auto mt-2">No hay webs visitadas recientemente</h5>
+				{% endif %}
+				</nav>
+			</section>
+		{% else %}
+
+			<!--Slide de imágenes-->
+			<section class="col-7 d-none d-sm-block">
+				{% for i in range(1,4) %}
+					<img class="img-fluid img-slide mt-5 mt-lg-0" src="{{ url_for('static', filename='images/') }}pk_go_{{i}}.jpg" alt="Pokemon bakground {{i}}">
+				{% endfor %}
+			</section>
+
+			<script>
+				var slideIndex = 0;
+				carousel();
+
+				function carousel() {
+					var i;
+					var x = document.getElementsByClassName("img-slide");
+					for (i = 0; i < x.length; i++) {
+						x[i].style.display = "none"; 
+					}
+					slideIndex++;
+					if (slideIndex > x.length) {slideIndex = 1} 
+					x[slideIndex-1].style.display = "block"; 
+					setTimeout(carousel, 5000); 
+				}
+			</script>
+		{% endif %}
+
+			<!--Sección con los libros mejor valorados-->
+			<section class="col-sm-5 col-12">
+				<h2 class="mt-3">Inicio</h2>
+
+				<article class="libro">
+					<p class="lead text-justify mx-5 my-4">
+						En esta web podrás tener una colección de todos los Pokémons y seleccionar aquellos que has capturado, buscar cualquiera que desees y llevar un control de tu Pokédex.
+					</p>
+					<p class="lead text-justify mx-5 my-4">También podrás ver cuáles son los últimos Pokémons añadidos y dar de alta uno tú mism@.</p>
+				</article>
+			</section>
+		</main>
+		
+		{% include 'footer.html' %}
+
+	</body>
+</html>

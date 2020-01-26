@@ -1,0 +1,15 @@
+			{% extends "header.html" %}
+			{% block header_right %}
+			<!--Formulario de acceso-->
+			<section class="col-sm-4 offset-sm-2 col-md-3 offset-md-0 text-white">
+				<form action="/login" class="ml-lg-5" id="access_form" method="post">
+					<label class="font-weight-bold" for="usuario">Usuario</label>
+					<input type="text" class="form-control col-lg-10" id="usuario" name="usuario" required>
+
+					<label class="font-weight-bold" for="password">Contraseña</label>
+					<input type="password" class="form-control col-lg-10" id="password" name="password" minlength="8" required>
+				</form>
+				<input class="ml-5 ml-sm-0 ml-lg-5" type="submit" id="botonEnviar" value="Acceder" form="access_form">
+				<a class="registro" href="/altausuario">Regístrate</a>
+			</section>
+			{% endblock %}

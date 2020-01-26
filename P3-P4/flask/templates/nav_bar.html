@@ -1,0 +1,15 @@
+			<!--Barra de navegación-->
+			<section class="sticky-top col-12 px-0">
+				<nav class="navbar navbar-expand navbar-light bg-light">
+					<div class="navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav mr-auto mt-2 mt-md-0">
+							<li class="nav-item"><a class="nav-link {% if active=='mispokemons' %}active{% endif %}" href="/mispokemons">Mis Pokémons</a></li>
+							<li class="nav-item"><a class="nav-link {% if active=='datospersonales' %}active{% endif %}" href="/datospersonales">Mis datos</a></li>
+						</ul>
+						<form name="form_buscar_pokemon" action="/buscarpokemon" method="post" class="form-inline my-2 my-md-0 mr-md-3">
+							<input type="search" name="nompokemon" class="form-control  mr-sm-2" placeholder="Buscar" aria-label="Search">
+							<input class="btn btn-rc my-2 my-sm-0 d-none d-sm-block" type="submit" id="btnBuscarPokemon" name="buscarPokemon" value="Buscar">
+						</form>
+					</div>
+				</nav>
+			</section>
